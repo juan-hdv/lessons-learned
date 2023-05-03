@@ -1,0 +1,50 @@
+	<check if="{{!empty(@disableMainMenu) && @disableMainMenu}}">
+	<true>
+		<aside>
+		<nav id="logo" class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+			<a class="navbar-brand active" href="javascript:void()"> --- </a>
+			<p class="navbar-text navbar-right">Usuario: {{ isset(@SESSION.userPersonName)?@SESSION.userPersonName:'Not logged' }}</p>			
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="javascript:void();" class="dropdown-toggle" data-toggle="dropdown">Administración de tablas<b class="caret"></b></a>
+				</li>
+				<li><a href='javascript:void()' data-toggle="modal" data-target="#myModal">Acerca de</a></li>
+			</ul>			
+		</nav>
+		</aside>		
+	</true>
+	<false>
+		<aside>
+		<nav id="logo" class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+			<a class="navbar-brand active" href="javascript:void()"> --- </a>
+			<p class="navbar-text navbar-right">Usuario: {{ isset(@SESSION.userPersonName)?@SESSION.userPersonName:'Not logged' }} (<a href="{{@BASE}}/logout" class="navbar-link">Salir</a>)</p>			
+			<!--
+			navbar navbar-default navbar-fixed-top
+			<a class="navbar-brand" href="/admin/areasc">Opciones generales</a>
+			-->
+			<ul class="nav navbar-nav">
+				<li class="dropdown active">
+					<a href="javascript:void();" class="dropdown-toggle" data-toggle="dropdown">Administración de tablas<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="{{ @BASE }}/admin/usuarios/read">Usuarios</a></li>
+						<li class="divider"></li>
+						<li><a href="{{ @BASE }}/admin/areasc">Areas de conocimiento</a></li>
+						<li><a href="{{ @BASE }}/admin/arquitecturas">Arquitecturas</a></li>
+						<li><a href="{{ @BASE }}/admin/tecnologias">Tecnologías</a></li>
+						<li><a href="{{ @BASE }}/admin/basesdatos">Bases de Datos</a></li>
+						<li><a href="{{ @BASE }}/admin/clientes">Clientes</a></li>
+						<li><a href="{{ @BASE }}/admin/mercados">Mercados</a></li>
+						<li><a href="{{ @BASE }}/admin/tproyectos">tproyectos</a></li>
+						<li><a href="{{ @BASE }}/admin/tservicios">tservicios</a></li>
+						<li><a href="{{ @BASE }}/admin/ubicaciones">Ubicaciones</a></li>
+						<li><a href="{{ @BASE }}/admin/paises">Países</a></li>
+						<li><a href="{{ @BASE }}/admin/criterios">Criterios de asociación de lecciones</a></li>
+					</ul>
+				</li>
+				<li><a href='javascript:void()' data-toggle="modal" data-target="#myModal">Acerca de</a></li>
+			</ul>			
+		</nav>
+		</aside>
+	</false>
+	</check>
+	<include href="acercade.html" />

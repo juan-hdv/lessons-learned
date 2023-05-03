@@ -1,0 +1,46 @@
+<div class="formZone">
+<form onsubmit="capitalizeInputs()" method="post" class="form-horizontal" role="form">
+	<div class="row">	
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="usuario">Usuario</label>
+			<div class="col-sm-7">
+			<input size="10" type="text" id="usuario" name="usuario" value="{{ @POST.usuario }}" class="form-control normalCase" placeholder="Nombre de usuario" required />
+			</div>	    
+	  	</div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tusuario">Tipo de usuario</label>
+			<div class="col-sm-7">
+			<select id="tusuario" name="tusuario" class="form-control normalCase" required>
+				<repeat group="{{ @tUsuarios }}" key="{{ @key }}" value="{{ @value }}">
+					<option value="{{ @key }}" <check if="{{ @POST.tusuario == @key}}">selected</check>>{{ @value }}</option>
+				</repeat>
+			</select>
+		    </div>
+	    </div>
+	    
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="nombre">Nombre</label>
+			<div class="col-sm-7">
+			<input size="64" type="text" id="nombre" name="nombre" value="{{ @POST.nombre }}" class="form-control capitalized" placeholder="Nombre" required />	    
+		    </div>
+	  	</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="email">Email</label>
+			<div class="col-sm-7">
+			<input size="64" type="text" id="email" name="email" value="{{ @POST.email }}" class="form-control normalCase" placeholder="Email" required />	    
+		    </div>
+	 	</div>
+	 	
+	    <input type="hidden" id="idusuario" name="idusuario" value="{{ @POST.idusuario }}" />
+	    <input type="hidden" id="update" name="update" value="update" />
+	    
+        <div class="control-group">
+			<button onclick='submitForm(this.form, "{{ @BASE }}/admin/usuarios/update", {"confirm":"update","registerValue":"{{@POST.usuario}}"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Modificar</button>
+	        <button onclick='submitForm(this.form, "{{@BASE}}/admin/usuarios/read",{"confirm":"cancel"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar </button>
+		</div>
+	</div>
+</form>
+<script>document.getElementById ('usuario').focus()</script>
+</div>

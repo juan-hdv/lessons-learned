@@ -1,0 +1,28 @@
+<div class="formZone">
+	<form method="post" class="form-horizontal" role="form">
+	<div class="row">		
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="clave">Nueva Clave</label>
+			<div class="col-sm-7">
+			<input autocomplete="off" size="10" type="password" id="clave" name="clave" value="" class="form-control normalCase" placeholder="Contraseña (entre 8 y 10 caracteres)" required />
+			</div>	    
+	  	</div><br>
+	
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="clave2">Repita la Clave</label>
+			<div class="col-sm-7">
+			<input autocomplete="off" size="10" type="password" id="clave2" name="clave2" value="" class="form-control normalCase" placeholder="Contraseña (entre 8 y 10 caracteres)" required />
+			</div>	    
+	  	</div><br>
+	
+		<input type="hidden" id="idusuario" name="idusuario" value="{{ @POST.idusuario }}">	
+	    <input type="hidden" id="update" name="update" value="update" />
+	    
+	    <div class="control-group">
+	    	<button onclick='submitForm(this.form, "{{@BASE}}/admin/usuarios/changePassword", {"confirm":"changePassword"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Cambiar Clave</button>
+	   		<button onclick='submitForm(this.form, "{{@BASE}}/admin/usuarios/read",{"confirm":"cancel"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar </button>
+		</div>
+	</form>
+	</div>
+	<script>document.getElementById ('clave').focus()</script>
+</div>

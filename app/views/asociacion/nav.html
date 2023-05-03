@@ -1,0 +1,18 @@
+		<div class="navbar">
+			<ul class="nav nav-pills">
+		       	<check if="{{@op=='updateGlobales'}}">
+		      	<true>
+		       	<li><a href="javascript:void(0);"><span class="glyphicon glyphicon-pushpin"></span> Lecciones por criterio</a></li>
+		       	<li><a href="javascript:void(0);"><span class="glyphicon glyphicon-globe"></span> Lecciones globales</a></li>
+		      	</true>
+		      	<false>
+		       	<li <check if="{{@op=='read'}}">class="active"</check>><a href="{{ @BASE }}/asociacion/read"><span class="glyphicon glyphicon-pushpin"></span> Lecciones por criterio</a></li>
+		       	<li <check if="{{@op=='readGlobales'}}">class="active"</check>><a href="{{ @BASE }}/asociacion/readGlobales"><span class="glyphicon glyphicon-globe"></span> Lecciones globales</a></li>
+		      	</false>
+		       	</check>
+		       	
+		       	<check if="{{@op=='updateGlobales'}}">
+		       	<li class="active"><a href="javascript:void(0);"><span class="glyphicon glyphicon-comment"></span> Actualizar texto de lección global</a></li>
+		       	</check>
+			</ul>
+		</div>

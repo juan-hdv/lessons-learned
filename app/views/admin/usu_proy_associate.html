@@ -1,0 +1,22 @@
+<div class="formZone">
+	<form onsubmit="setTextField()" method="post" class="form-horizontal" role="form">
+	    <input type="hidden" id="associate" name="associate" />
+	    <input type="hidden" id="idusuario" name="idusuario" value="{{ @SESSION.idusuario }}" />
+	    
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="idproyecto">Proyecto que desea asociar al usuario</label>
+			<div class="col-sm-7">
+			<select id="idproyecto" name="idproyecto" class="form-control" required>
+				<repeat group="{{ @proyectos }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idproyecto }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.codigo }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	    <div class="control-group">
+	        <button onclick='submitForm(this.form, "{{@BASE}}/admin/usuarios/proyectos/associate", {"confirm":"associate"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Crear la asociación</button>
+	        <button onclick='submitForm(this.form, "{{@BASE}}/admin/usuarios/proyectos/read",{"confirm":"cancel"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar </button>
+	    </div>
+	</form>
+</div>

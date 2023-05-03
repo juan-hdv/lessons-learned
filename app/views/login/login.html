@@ -1,0 +1,22 @@
+<div style="margin: 0 30%; border:2px outset; padding: 8px">
+	<set ancho_nombre="90% "></set>
+	<bR>
+	<form autocomplete="off" action='{{ htmlspecialchars("@BASE/login") }}' method="post" class="form-horizontal" role="form">
+		<div class="input-group">
+			<span class="input-group-addon">Usuario&nbsp;</span>
+			<input size="10" width="{{ @ancho_nombre }}" type="text" id="usuario" name="usuario" value="" class="form-control normalCase" placeholder="Nombre de usuario" required />	    
+	 	</div><br>
+
+		<div class="input-group">
+		    <span class="input-group-addon">Clave&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<input size="10" width="{{ @ancho_nombre }}" type="password" id="clave" name="clave" value="" class="form-control normalCase" placeholder="Contraseña (entre 8 y 10 caracteres)" required />	    
+	  	</div><br>
+
+        <div class="control-group" align="center">
+	    	<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Entrar al Sistema</button>
+		</div>
+		
+	    <input type="hidden" id="login" name="login" value="login" />
+	</form>
+	<script>document.getElementById ('usuario').focus()</script>
+</div>

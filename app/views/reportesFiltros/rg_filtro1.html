@@ -1,0 +1,45 @@
+<!--
+ * Fuiltro para reportes gráficos R1: PIES
+ * 
+-->	
+<!--
+	@rg_filtro1
+	
+	Asociado con el código: RG1
+	
+	Filtra por campos o tablas asociadas a la tabla proyectos
+	
+	VER: ReportesGraficosControler :: 
+	* 
+	* USADO POR:
+	* 		views/reportesGraficos/R1..11
+	* 
+-->
+<div class="formZone">
+	<form method="post" class="form-horizontal--" role="form">
+	<div class="row">
+	    <div class="form-group">
+	        <label class="col-sm-3 control-label" for="campo">Campo para generar el reporte</label>
+	        <div class="col-sm-5">
+			<select id="campo" name="campo" class="form-control" required onchange="submitForm(this.form,'{{ @BASE }}/reportesGraficos/'+this.options[this.selectedIndex].value)">
+				<option value="RG1" <check if="{{@reportCode=='RG2'}}">selected</check>>Areas de Conocimiento</option>
+				<option value="RG2" <check if="{{@reportCode=='RG2'}}">selected</check>>Proyectos (Todos)</option>
+				<option value="RG21" <check if="{{@reportCode=='RG21'}}">selected</check>>Proyectos Abiertos</option>
+				<option value="RG22" <check if="{{@reportCode=='RG22'}}">selected</check>>Proyectos Cerrados</option>
+				<option value="RG3" <check if="{{@reportCode=='RG3'}}">selected</check>>Tipos de proyecto</option>
+				<option value="RG4" <check if="{{@reportCode=='RG4'}}">selected</check>>Tipos de sevicio</option>
+				<option value="RG5" <check if="{{@reportCode=='RG5'}}">selected</check>>Clientes</option>
+				<option value="RG6" <check if="{{@reportCode=='RG6'}}">selected</check>>Mercados</option>
+				<option value="RG7" <check if="{{@reportCode=='RG7'}}">selected</check>>Arquitecturas</option>
+				<option value="RG8" <check if="{{@reportCode=='RG8'}}">selected</check>>Tecnologias</option>
+				<option value="RG9" <check if="{{@reportCode=='RG9'}}">selected</check>>Base de Datos</option>
+				<option value="RG10" <check if="{{@reportCode=='RG10'}}">selected</check>>Ubicaciones</option>
+				<option value="RG11" <check if="{{@reportCode=='RG11'}}">selected</check>>Paises</option>
+				<option value="RG12" <check if="{{@reportCode=='RG12'}}">selected</check>>Años</option>
+			</select>
+			</div>
+	    </div>
+	    <input type="hidden" id="report" name="report" value ="report"/>
+	</div>
+	</form>
+</div>

@@ -1,0 +1,41 @@
+<!-- * * * * * * INFO MESSAGES * * * * * * -->
+<check if="{{ !empty(@info_message) }}">
+	<div class="alert alert-info">
+	<b><repeat group="{{ @info_message }}" value="{{ @line }}">{{ @line }}<br></repeat></b>
+	</div>
+</check>
+<!-- For info messages that must be printed after routing to another page -->
+<check if="{{ isset (@PARAMS.msg) && @PARAMS.msg=='msg' && !empty(@SESSION.info_message) }}">
+	<div class="alert alert-info">
+	<b><repeat group="{{ @SESSION.info_message }}" value="{{ @line }}">{{ @line }}<br></repeat></b>
+	</div>
+</check>
+	
+<!-- * * * * * *  ERROR MESSAGES  * * * * * *  -->
+<check if="{{ !empty(@error_message) }}">
+	<div class="alert alert-danger">
+	<b><repeat group="{{ @error_message }}" value="{{ @line }}">{{ @line }}<br></repeat></b>
+	</div>
+</check>
+<!-- For errors that must be printed after routing to another page -->
+<check if="{{ isset (@PARAMS.msg) && @PARAMS.msg=='error' && !empty(@SESSION.error_message) }}">
+	<div class="alert alert-danger">
+	<b><repeat group="{{ @SESSION.error_message }}" value="{{ @line }}">{{ @line }}<br></repeat></b>
+	</div>
+</check>
+<!-- General error messages HTTP errors, debug errors, etc. -->
+<check if="{{ !empty(@SESSION.gen_error_message) }}">
+	<div class="alert alert-danger">
+		<h4 align="left">Error {{ @SESSION.gen_error_message["code"] }}</h4>
+		<h3 align="left">{{ @SESSION.gen_error_message["title"] }}</h3>
+		<h4 align="left">{{ @SESSION.gen_error_message["text"] }}</h4>
+	</div>
+	<br /><br /><br />
+	<check if="{{ @SESSION.module_name == 'ADMIN' }}">
+		<h4><a href="{{@BASE}}/admin">Regresar a la página principal {{ !empty(@POST.clave)?@POST.clave:'' }}</a></h4>
+	</check>
+	<check if="{{ @SESSION.module_name == 'MAIN' }}">
+		<h4><a href="{{@BASE}}/">Regresar a la página principal</a></h4>
+	</check>
+	<br /><br /><br />
+</check>

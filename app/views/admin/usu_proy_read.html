@@ -1,0 +1,31 @@
+<check if="!@usu_proy">
+<true>
+	<div class="alert alert-info"><b>El usuario no tiene proyectos asociados.</b></div>	
+</true>
+<false>
+<div id="print_area">
+	<table align="center" cellpadding="5" class="table-hover table-bordered table-condensed data_base_data">
+	    <thead>
+	    <tr>
+	        <th scope="col">Proyecto</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <repeat group="{{ @usu_proy }}" value="{{ @elem }}">
+	        <tr>
+	            <td>{{ trim(@elem.codigo) }}</td>
+	            <td width="110">
+					<form method="post">
+					<input type="hidden" id="proy_codigo" name="proy_codigo" value="{{ trim(@elem.codigo) }}">	
+					<input type="hidden" id="idusuario" name="idusuario" value="{{ @elem.idusuario }}">	
+					<input type="hidden" id="idproyecto" name="idproyecto" value="{{ @elem.idproyecto }}">	
+		            <button onclick='submitForm(this.form, "{{ @BASE }}/admin/usuarios/proyectos/unassociate",{"confirm":"","registerValue":"{{@elem.codigo}}"}); return false;' class="btn btn-info btn-xs"><span class="glyphicon glyphicon-minus-sign"></span> Desasociar</button>
+	            	</form>
+	            </td>
+	         </tr>
+	    </repeat>
+	    </tbody>
+	</table>
+</div>
+</false>
+</check>

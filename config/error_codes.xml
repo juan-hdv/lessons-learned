@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gen_error_messages>
+<error>
+	<code>NOPERM</code>
+	<title>Operación no permitida al usuario.</title>
+	<text>El usuario está intentando acceder a una página u operación a la que no tiene permisos.</text>
+</error>
+<error>
+	<code>HSH9IO</code>
+	<title>Sed ut perspiciatis unde...</title>
+	<text>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia.</text>
+</error>
+<error>
+	<code>012345</code>
+	<title>Lorem ipsum dolor sit amet</title>
+	<text>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>
+</error>
+</gen_error_messages>

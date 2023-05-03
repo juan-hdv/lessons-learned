@@ -1,0 +1,41 @@
+<check if="{{ !@usuarios }}">
+<true>
+	<div class="alert alert-info"><b>No hay usuarios para mostrar.</b></div>	
+</true>
+<false>	
+<div id="print_area">
+	<table align="center" cellpadding="5" class="table-hover table-bordered table-condensed data_base_data">
+	    <thead>
+	    <tr>
+	        <th scope="col">Usuario</th>
+	        <th scope="col">Tipo de usuario</th>
+	        <th scope="col">Nombre</th>
+	        <th scope="col">Email</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <repeat group="{{ @usuarios }}" value="{{ @elem }}">
+	        <tr>
+	            <td>{{ trim(@elem.usuario) }}</td>
+	            <td>{{ @tUsuarios[@elem.tusuario] }}</td>
+	            <td>{{ trim(@elem.nombre) }}</td>
+	            <td>{{ trim(@elem.email) }}</td>
+	            <td width="300">
+					<form method="post">
+					<input type="hidden" id="idusuario" name="idusuario" value="{{ @elem.idusuario }}">	
+					<input type="hidden" id="usuario" name="usuario" value="{{ @elem.usuario }}">	
+	            	<button onclick='submitForm(this.form, "{{ @BASE }}/admin/usuarios/update"); return false;' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Editar</button> 
+	            	<button onclick='submitForm(this.form, "{{ @BASE }}/admin/usuarios/changePassword"); return false;' class="btn btn-success btn-xs"><span class="glyphicon glyphicon-check"></span> C.Clave</button>
+	            	<button onclick='submitForm(this.form, "{{ @BASE }}/admin/usuarios/delete", {"confirm":"delete", "registerValue":"{{@elem.usuario}}"}); return false;' class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+	            	<!-- Sólo usuarios regulares UC, UM tienen asociados proyectos -->
+	            	<check if="@elem.tusuario=='UC' || @elem.tusuario=='UM'">
+	            		<button onclick="submitForm(this.form, '{{ @BASE }}/admin/usuarios/proyectos/read'); return false;" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-link"></span> proyectos</button>
+	            	</check>
+	            	</form>
+	            </td>
+	         </tr>
+	    </repeat>
+	    </tbody>
+	</table>
+</div>
+</false>	

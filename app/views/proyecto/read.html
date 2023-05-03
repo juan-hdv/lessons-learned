@@ -1,0 +1,76 @@
+<check if="!@proyectos">
+<true>
+	<div class="alert alert-info"><b>No hay proyectos registrados.</b></div>	
+</true>
+<false>
+	<div id="print_area">
+	<form name="formRead" method="post">
+	<table width="100%" cellpadding="1" class="valign table-hover table-bordered table-condensed data_base_data">
+	    <thead>
+	    <tr>
+	        <th scope="col">Código</th>
+	        <th scope="col">Nombre</th>
+	        <th scope="col">Estado</th>
+	        <th scope="col">Tipo de servicio</th>
+	        <th scope="col">Tipo de proyecto</th>
+	        <th scope="col">Mercado</th>
+	        <th scope="col">Cliente</th>
+	        <th scope="col">Arquitectura</th>
+	        <th scope="col">Tecnología principal</th>
+	        <th scope="col">Base de Datos</th>
+	        <th scope="col">Ubicación</th>
+	        <th class="hidden-print" scope="col">&nbsp;</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <set ancho="-1"></set>
+	    <repeat group="{{ @proyectos }}" value="{{ @elem }}">
+	  		<form name="formRead" id="formRead" method="post">
+			<input type="hidden" id="idproyecto" name="idproyecto" value="{{ @elem.idproyecto }}">
+	        <tr>
+	            <td>
+	            	<!--
+	            	<set ancho="{{ max(@ancho, strlen(@elem.codigo)) }}"></set>
+					<button style="width:{{@ancho*0.70}}em; text-align:left" onclick='submitForm(this.form, "{{ @BASE }}/leccion/read"); return false;' class="btn btn-info btn-xs">{{ trim(@elem.codigo) }}</button>
+					-->
+				    <a title="header=[] body=[Click para ver las lecciones asociadas]" href="javascript:void();" onclick='submitForm(document.getElementById("formRead"), "{{ @BASE }}/leccion/read"); return false;'>{{ trim(@elem.codigo) }}</a>
+	           	</td>
+	            <td>{{ trim(@elem.nombre) }}</td>
+	            <td>{{ trim(@elem.estado)=='1'?"ABIERTO":"CERRADO" }}</td>
+	            <td>{{ trim(@elem.tservicio) }}</td>
+	            <td>{{ trim(@elem.tproyecto) }}</td>
+	            <td>{{ trim(@elem.mercado) }}</td>
+	            <td>{{ trim(@elem.cliente) }}</td>
+	            <td>{{ trim(@elem.arquitectura) }}</td>
+	            <td>{{ trim(@elem.tecnologia) }}</td>
+	            <td>{{ trim(@elem.basedatos) }}</td>
+	            <td>{{ trim(@elem.ubicacion) }}</td>
+	            <td class="hidden-print">
+	            	<div class="opButtons">
+						<!-- Buttons only allowed for projects associated with the logged user -->
+						<check if="{{ @superUser || in_array(@elem.idproyecto, @userProjects) }}">
+							<check if="{{ @crud['U'] }}">
+				           	<button onclick='submitForm(this.form, "{{ @BASE }}/proyecto/update"); return false;' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Editar</button> 
+				           	</check>
+				           	
+							<check if="{{ @crud['D'] }}"> 	
+			           		<button onclick='submitForm(this.form, "{{ @BASE }}/proyecto/delete",{"confirm":"delete","registerValue":"{{@elem.codigo}}","moreInfo":"Si elimina el proyecto, se eliminarán también todas las lecciones aprendidas asociadas."}); return false;' class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+			           		</check>
+		      			</check>
+		            	<button onclick='submitForm(this.form, "{{ @BASE }}/leccion/read"); return false;' class="btn btn-info btn-xs"><span class="glyphicon glyphicon-book"></span> Lecciones ({{@elem.numlec}})</button>
+	            	</div>
+	            </td>
+	        </tr>
+	        </form>
+	    </repeat>
+	    </tbody>
+	</table>
+	</form>
+	</div>
+	<br>
+	<a class="hidden-print" href="{{@BASE}}/proyecto/read/export" target="_blank" style="float:right">
+		<img src="{{@BASE}}/ui/img/tocsv.jpg" alt="Exportar a Excel">
+	</a>
+</false>
+</check>
+

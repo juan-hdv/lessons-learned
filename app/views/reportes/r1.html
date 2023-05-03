@@ -1,0 +1,94 @@
+<!--
+	LECCIONES APRENDIDAS CONSOLIDADAS
+	
+	Lecciones NO globales y Globales
+	DB view:  view-R1
+		NO Selecciona códigos de las tablas foraneas, sólo nombres.	
+-->
+<style>
+	.globalClass {
+		font-weight:bold; 
+		background-color:#FFE98A; 
+	}
+	tr.noGlobalClass,
+	tr.globalClass {
+		border-left:5px solid;
+	}
+	.Convenciones {
+		border: 1px outset #BBBBBB;
+		padding: 3px;
+		margin-bottom: 10px;
+	}
+	@media print {
+		@page {size: landscape}
+		#print_area { 
+			font-size: .5em;
+		}
+	}	
+</style>
+<set formAction="reportes/R1"></set>
+<include href="/reportesFiltros/r_filtro1.html" />
+<check if="!@lista">
+<true>
+	<div class="alert alert-info"><b>No hay lecciones para mostrar con los parámetros dados.</b></div>	
+</true>
+<false>
+	<div id="print_area">
+	<span class="globalClass Convenciones">&nbsp;&nbsp;&nbsp;</span>&nbsp;<strong>Lecciones&nbsp;Globales</strong>
+	<bR><bR>
+	<table width="100%" cellpadding="1" class="valign table-hover table-bordered table-condensed data_base_data">
+    <thead>
+    <tr>
+        <th scope="col">Area de Conocimiento</th>
+        <th scope="col">Valoración</th>
+        <th scope="col">ID</th>
+        <th scope="col">Año</th>
+        <th scope="col">Proyecto</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Tipo de proyecto</th>
+        <th scope="col">Tipo de servicio</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Mercado</th>
+        <th scope="col">Ubicación</th>
+        <th scope="col">País</th>
+        <th scope="col">Arquitectura</th>
+        <th scope="col">Tecnología principal</th>
+        <th scope="col">Base de datos</th>
+        <th scope="col">Lección Aprendida</th>
+    </tr>
+    </thead>
+    <tbody>
+    <repeat group="{{ @lista }}" value="{{ @elem }}">
+    	<set class="{{ @elem.esglobal?'globalClass':'noGlobalClass'}}"></set>
+    	<set criterioColor="{{ @elem.esglobal || (!is_null(@elem.idcriterio) && !is_null(@elem.lecglobal))?@elem.criterio_color:'EEEEEE' }}"></set>
+    	<tr class="{{@class}}" style="border-left-color:#{{@criterioColor}}">
+            <td>{{ @elem.nombre }}</td>
+            <td>{{ @elem.valoracion=='P'?'A REPETIR':'A EVITAR' }}</td>
+            <td>
+            {{ !@elem.esglobal?sprintf (@leccion_id_format,@elem.idleccion):'['.sprintf (@leccion_id_format,@elem.idleccion).']' }}
+            {{ @elem.esglobal?@elem.lecciones:'' }}
+            </td>
+            <td>{{ is_null(@elem.anos)?"":@elem.anos }}</td>
+            <td>{{ is_null(@elem.proyectos)?"":@elem.proyectos }}</td>
+            <td>{{ (@elem.estado==0?"CERRADO":(@elem.estado==1?"ABIERTO":"")) }}</td>
+            <td>{{ is_null(@elem.tproyectos)?"":@elem.tproyectos }}</td>
+            <td>{{ is_null(@elem.tservicios)?"":@elem.tservicios }} </td>
+            <td>{{ is_null(@elem.clientes)?"":@elem.clientes }}</td>
+            <td>{{ is_null(@elem.mercados)?"":@elem.mercados }}</td>
+            <td>{{ is_null(@elem.ubicaciones)?"":@elem.ubicaciones }}</td>
+            <td>{{ is_null(@elem.paises)?"":@elem.paises }}</td>
+            <td>{{ is_null(@elem.arquitecturas)?"":@elem.arquitecturas }}</td>
+            <td>{{ is_null(@elem.tecnologias)?"":@elem.tecnologias }}</td>
+            <td>{{ is_null(@elem.basesdatos)?"":@elem.basesdatos }}</td>
+            <td><div class="wideText">{{ @elem.leccion }}</div></td>
+         </tr>
+	</repeat>
+    </tbody>
+	</table>
+	</div>
+	<br>
+	<a class="hidden-print" href="{{@BASE}}/reportes/R1/export" target="_blank" style="float:right">
+		<img src="{{@BASE}}/ui/img/tocsv.jpg" alt="Exportar a Excel">
+	</a>
+</false>
+</check>

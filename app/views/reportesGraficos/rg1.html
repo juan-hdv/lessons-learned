@@ -1,0 +1,25 @@
+<check if="{{ !@dataSet }}">
+<true>
+	<div class="alert alert-info"><b>No hay lecciones para mostrar con los parámetros dados.</b></div>	
+</true>
+<false>
+	<div id="graphContainer">
+		<div class="row" style="border-bottom:1px solid #BBBBBB">
+			<div class="col-md-7">
+			<include href="/reportesFiltros/rg_filtro1.html" />
+			</div>
+			<div class="formZone col-md-5 hidden-print" style="padding:5px; margin:0;">
+				<a href='javascript:void()' data-toggle="modal" data-target="#modalPiesExplanation">
+				<img id="info_img" src="{{@BASE}}/ui/img/info.gif" width="52" />
+				</a>
+			</div>
+		</div>
+		<img src="{{@BASE}}/graphs/graph{{@reportCode}}.png" />
+	</div>
+	<br>
+	<a class="hidden-print" href="{{@BASE}}/reportesGraficos/RG1/export" target="_blank" style="float:right">
+		<img src="{{@BASE}}/ui/img/tocsv.jpg" alt="Exportar a Excel">
+	</a>
+</false>
+</check>
+<include href="/reportesGraficos/piesExplanation.html" />

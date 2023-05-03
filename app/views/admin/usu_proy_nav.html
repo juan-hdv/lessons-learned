@@ -1,0 +1,20 @@
+	<div class="navbar">
+		<ul class="nav nav-pills">
+			<!-- READ USUARIOS BUTTON -->
+	       	<li><a href="{{@BASE}}/admin/usuarios/read"><span class="glyphicon glyphicon-th"></span> Listar usuarios</a></li>
+			<!-- READ ASSOCIATIONS BUTTON -->
+			<check if="{{ @op == 'read' }}">	
+	       		<li class="active"><a href="javascript:void()"><span class="glyphicon glyphicon-link"></span> Proyectos asociados</a></li>
+	       	</check>
+			<check if="{{@op=='associate'}}">
+	       		<li><a href="{{@BASE}}/admin/usuarios/proyectos/read"><span class="glyphicon glyphicon-link"></span> Proyectos asociados</a></li>
+			</check>
+			<!-- ASSOCIATE BUTTON -->
+			<check if="{{ @op == 'read' }}">
+	       		<li><a href="{{@BASE}}/admin/usuarios/proyectos/associate"><span class="glyphicon glyphicon-plus-sign"></span> Asociar proyecto</a></li>
+			</check>	
+			<check if="{{ @op == 'associate' }}">
+	       		<li class="active"><a href="javascript:void()"><span class="glyphicon glyphicon-plus-sign"></span> Asociar proyecto</a></li>
+			</check>	
+		</ul>
+	</div>

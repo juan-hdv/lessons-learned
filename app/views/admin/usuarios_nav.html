@@ -1,0 +1,21 @@
+	<div class="navbar">
+		<ul class="nav nav-pills">
+		   	<check if="{{@op=='read'}}">
+	       		<li class="active"><a href="javascript:void();"><span class="glyphicon glyphicon-th"></span> Listar usuarios</a></li>
+	       	</check>
+			<check if="{{@op=='create' || @op=='update'}}">
+				<li><a href="javascript:void(0);"><span class="glyphicon glyphicon-th"></span> Listar usuarios</a></li>
+			</check>
+			<!-- CREATE BUTTON -->	
+	       	<check if="{{@op=='create'}}">
+		       	<li class="active"><a href="javascript:void();"><span class="glyphicon glyphicon-plus-sign"></span> Crear</a></li>
+	       	</check>
+			<check if="{{@op=='read'}}">
+		       	<li><a href="{{@BASE}}/admin/usuarios/create"><span class="glyphicon glyphicon-plus-sign"></span> Crear</a></li>
+			</check>
+			<!-- UPDATE BUTTON -->	
+	       	<check if="{{@op=='update' || @op=='changePassword'}}">
+	       		<li class="active"><a href="javascript:void(0);"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
+	       	</check>
+		</ul>
+	</div>

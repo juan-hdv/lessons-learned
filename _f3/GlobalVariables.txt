@@ -1,0 +1,2 @@
+List of Fat-Free built-in framework variables::
+https://github.com/bcosca/fatfree#quick-reference

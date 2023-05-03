@@ -1,0 +1,58 @@
+<div class="formZone">
+<form onsubmit="capitalizeInputs()" method="post" class="form-horizontal" role="form">
+	<div class="row">
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="usuario">Usuario</label>
+			<div class="col-sm-7">
+			<input size="15" max="10" type="text" id="usuario" name="usuario" value="" class="form-control normalCase" placeholder="Nombre de usuario" required />
+			</div>	    
+	 	</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="clave">Clave</label>
+			<div class="col-sm-7">
+			<input size="15" type="password" id="clave" name="clave" value="" class="form-control normalCase" placeholder="Contraseña (entre 8 y 10 caracteres)" required /> 
+			</div>	    
+	  	</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="clave2">Repita la Clave</label>
+			<div class="col-sm-7">
+			<input size="15" type="password" id="clave2" name="clave2" value="" class="form-control normalCase" placeholder="Contraseña (entre 8 y 10 caracteres)" required />	    
+			</div>	    
+	  	</div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tusuario">Tipo de usuario</label>
+			<div class="col-sm-7">
+			<select id="tusuario" name="tusuario" class="form-control normalCase" required>
+				<repeat group="{{ @tUsuarios }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @c }}">
+					<option value="{{ @key }}" <check if="{{ @c == 1 }}">selected</check>>{{ @value }}</option>
+				</repeat>
+			</select>
+			</div>	    
+	    </div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="nombre">Nombre de la persona</label>
+			<div class="col-sm-7">
+			<input size="64" type="text" id="nombre" name="nombre" value="" class="form-control capitalized" placeholder="Nombre" required />	    
+			</div>	    
+	 	</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="email">Email</label>
+			<div class="col-sm-7">
+			<input size="64" type="text" id="email" name="email" value="" class="form-control normalCase" placeholder="Email" required />
+			</div>	    
+	  	</div>
+
+		<input type="hidden" id="create" name="create" value="create" />
+        <div class="control-group" style="text-align: center">
+	    	<button onclick='submitForm(this.form, "{{@BASE}}/admin/usuarios/create", {"confirm":"create"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Añadir</button>
+	        <button onclick='submitForm(this.form, "{{@BASE}}/admin/usuarios/read",  {"confirm":"cancel"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar </button>
+		</div>
+	</div>		
+</form>
+<script>document.getElementById ('usuario').focus()</script>
+</div>

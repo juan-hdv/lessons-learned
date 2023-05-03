@@ -1,0 +1,87 @@
+<!--
+	Lecciones Globales
+-->
+<style>
+@media print {
+	@page {size: landscape}
+	#print_area { 
+		font-size: .6em;
+	}
+}
+</style>
+<check if="!@lista">
+<true>
+	<div class="alert alert-info"><b>No hay lecciones globales.</b></div>	
+</true>
+<false>
+	<div id="print_area">
+	<table width="100%" cellpadding="1" class="valign table-hover table-bordered table-condensed data_base_data">
+    <thead>
+    <tr>
+        <th scope="col" class="hidden-print">Editar</th>
+        <th scope="col">Criterio</th>
+        <th scope="col">ID</th>
+        <th scope="col">Año</th>
+        <th scope="col">Area de Conocimiento</th>
+        <th scope="col">Valoración</th>
+        <th scope="col">Lección Aprendida</th>
+        <th scope="col">Proyectos</th>
+        <th scope="col">Tipos de proyecto</th>
+        <th scope="col">Tipos de servicio</th>
+        <th scope="col">Clientes</th>
+        <th scope="col">Mercados</th>
+        <th scope="col">Ubicaciones</th>
+        <th scope="col">Paises</th>
+        <th scope="col">Arquitecturas</th>
+        <th scope="col">Tecnología principal</th>
+        <th scope="col">Bases de datos</th>
+    </tr>
+    </thead>
+    <tbody>
+    <repeat group="{{ @lista }}" value="{{ @elem }}" counter="{{ @ctr }}">
+    	<tr>
+    		<td class="hidden-print" style="text-align: center">
+				<form method="post" class="form-horizontal" role="form">
+				    <input type="hidden" id="areac" name="areac" value="{{@elem.areac}}" />
+				    <input type="hidden" id="idleccion" name="idleccion" value="{{@elem.idleccion}}" />
+				    <div class="input-group">
+			           	<button onclick='submitForm(this.form, "{{ @BASE }}/asociacion/updateGlobales",{"confirm":"update"}); return false;' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span></button>
+				    </div>
+				</form>
+    		</td>
+            <td style="background-color:#{{ @elem.criterio_color }}">
+            	<div class="hidden-print">{{ str_replace (" ","&nbsp;",@elem.criterio); }}</div>
+            	<div class="visible-print">{{ @elem.criterio }}</div>
+           	</td>
+            <td>
+            	[<span title="header=[ID Lección global] body=[]">{{ sprintf (@leccion_id_format,@elem.idleccion) }}</span>]<br>
+            	{{ preg_replace ("/([0-9]+)/m","<a href='javascript:void();' onclick='winPopUp (\"@BASE/leccion/info/$1\",800,550);'>$1</a>",@elem.lecciones) }}
+            </td>
+            <td>{{ @elem.ano }}</td>
+            <td>GLOBAL</td>
+            <td>{{ @elem.valoracion=='P'?'POSITIVA':'NEGATIVA' }}</td>
+            <td><div class="wideText">{{ @elem.leccion }}</div>
+            </td>
+            <td>{{ @elem.proyectos }}</td>
+            <td>{{ @elem.tproyectos }}</td>
+            <td>{{ @elem.tservicios }}</td>
+            <td>{{ @elem.clientes }}</td>
+            <td>{{ @elem.mercados }}</td>
+            <td>{{ @elem.ubicaciones }}</td>
+            <td>{{ @elem.paises }}</td>
+            <td>{{ @elem.arquitecturas }}</td>
+            <td>{{ @elem.tecnologias }}</td>
+            <td>{{ @elem.basesdatos }}</td>
+         </tr>
+	</repeat>
+    </tbody>
+	</table>
+<br><br>
+</div>
+<br>
+<a class="hidden-print" href="{{@BASE}}/asociacion/readGlobales/export" target="_blank" style="float:right;">
+	<img src="{{@BASE}}/ui/img/tocsv.jpg" alt="Exportar a CSV">
+</a>
+</false>
+</check>
+

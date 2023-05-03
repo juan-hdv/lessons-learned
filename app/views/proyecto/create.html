@@ -1,0 +1,142 @@
+<div class="formZone">
+	<form onsubmit="capitalizeInputs()" action='{{ htmlspecialchars("@BASE/proyecto/create") }}' method="post" class="form-horizontal capitalized" role="form">
+	<div class="row">	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="codigo">Código</label>
+			<div class="col-sm-7">
+	        <input type="text" id="codigo" name="codigo" value="" class="form-control" placeholder="Código del Proyecto" required />
+	       </div>
+	    </div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="nombre">Nombre</label>
+			<div class="col-sm-7">
+	        <input type="text" id="nombre" name="nombre" value="" class="form-control" placeholder="Nombre del Proyecto" required />
+	       </div>
+	    </div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="estado">Estado</label>
+			<div class="col-sm-7">
+	        <div class="form-control" style="text-align: left">
+				<div class="radio-inline">
+				  <label><input type="radio" name="estado" id="estado1" value="1" checked> Abierto</label>
+				</div>
+				<div class="radio-inline">
+				  <label><input type="radio" name="estado" id="estado2" value="0"> Cerrado</label>
+				</div>        
+			</div>
+			</div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tservicio">Tipo de Servicio</label>
+			<div class="col-sm-7">
+			<select id="tservicio" name="tservicio" class="form-control" required>
+				<repeat group="{{ @tservicios }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idtservicio }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	       </div>
+	    </div>
+	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tproyecto">Tipo de Proyecto</label>
+			<div class="col-sm-7">
+			<select id="tproyecto" name="tproyecto" class="form-control" required>
+				<repeat group="{{ @tproyectos }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idtproyecto }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	       </div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="mercado">Mercado</label>
+			<div class="col-sm-7">
+	   		<select id="mercado" name="mercado" class="form-control" required>
+				<repeat group="{{ @mercados }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idmercado }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	       </div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="cliente">Cliente</label>
+			<div class="col-sm-7">
+			<select id="cliente" name="cliente" class="form-control" required>
+				<repeat group="{{ @clientes }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idcliente }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	       </div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="arquitectura">Arquitectura</label>
+			<div class="col-sm-7">
+			<select id="arquitectura" name="arquitectura" class="form-control" required>
+				<repeat group="{{ @arquitecturas }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idarquitectura }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	       </div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tecnologia">Tecnología principal</label>
+			<div class="col-sm-7">
+			<select id="tecnologia" name="tecnologia" class="form-control" required>
+				<repeat group="{{ @tecnologias }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idtecnologia }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	       </div>
+	    </div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tecnologia">Tecnologías secundarias</label>
+			<div class="col-sm-7">
+	        <div class="form-control" style="text-align: left">
+				<repeat group="{{ @tecnologias }}" value="{{ @elem }}">
+					<label class="checkbox-inline">
+					<input type="checkbox" name="tecnologias2[]" id="tecnologias2" value="{{ @elem.idtecnologia }}"> {{ @elem.nombre }}
+					</label>
+				</repeat>
+	        </div>
+	        </div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="basedatos">Base de Datos</label>
+			<div class="col-sm-7">
+			<select id="basedatos" name="basedatos" class="form-control" required>
+				<repeat group="{{ @basesdatos }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idbasedatos }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	       </div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="ubicacion">Ubicación</label>
+			<div class="col-sm-7">
+	   		<select id="ubicacion" name="ubicacion" class="form-control"  required>
+				<repeat group="{{ @ubicaciones }}" value="{{ @elem }}" counter="{{ @c }}">
+					<option value="{{ @elem.idubicacion }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	       </div>
+	    </div>
+	
+		<input type="hidden" id="create" name="create" />
+	    <div class="control-group">
+	    	<button onclick='submitForm(this.form, "{{@BASE}}/proyecto/create",{"confirm":"create"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Añadir Proyecto</button>
+			&nbsp;&nbsp;
+	        <button onclick='submitForm(this.form, "{{@BASE}}/proyecto/read",{"confirm":"cancel"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</button>
+	    </div>
+	</div>    
+	</form>
+	<script>document.getElementById ('codigo').focus()</script>
+</div>

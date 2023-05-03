@@ -1,0 +1,36 @@
+		<!-- Modal -->
+		<div class="modal fade" id="modalPiesExplanation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="myModalLabel">Explicación sobre los 'Pie Charts' de esta página</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div style="font-size: 1.1em">
+				<p>Cada una de las gráficas presentadas despliega el porcentaje de 
+				Lecciones Aprendidas, clasificadas por diferentes campos de los
+				proyectos (mercados, arquitecturas, tipos de servicio, países, años,
+				etc).</p> 
+				<p>Sólo participan en las estadísticas aquellas Lecciones que--por
+				algún criterio de semejanza (asociación)--están relacionadas con
+				otras. El total de Lecciones participantes está conformado por 
+				aquellas que se repiten por lo menos una vez (i.e. están asociadas
+				con otra(s) semejantes en algún aspecto). No participan en los
+				Charts las Lecciones "huérfanas" (que no se repiten en otros proyectos).</p>
+				<p>Así, por ejemplo, en el Pie Chart de mercados, pueden aparecer cinco (5) 
+				Lecciones en total; cada una de ellas está asociada con alguna(s)
+				otra(s) de las participantes en el Chart. Estas cinco son Lecciones
+				relevantes, ya que se han repetido o tienen semejanza con otras 
+				experiencias (lecciones) de otros proyectos. Para cada mercado se
+				presenta el porcentaje de dichas Lecciones relevantes, y frente a
+				la etiqueta, las Lecciones que le pertencen por mercado.</p>
+				</div><br><br><br>
+				<small>Lessons Learned ({{ date('Y')==@year?@year:2014-@year }})</small>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->

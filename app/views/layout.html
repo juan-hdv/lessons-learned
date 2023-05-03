@@ -1,0 +1,9 @@
+<include href="header.html" />
+<check if="{{ !empty(@navigation) }}">
+	<include href="{{ @navigation }}" />
+</check>
+<include href="messages.html" />
+<check if="{{ !empty(@view) }}">
+	<include href="{{ @view }}" />
+</check>
+<include href="footer.html" />

@@ -1,0 +1,146 @@
+/* 
+ * Correcciones generales 
+ */
+body {
+    line-height: 1;
+}
+
+/*
+ * Contenedor principal de todas las pantallas
+ */
+#wrapper {
+    width: 90%;
+    margin:0 auto 10px; /* Top right-left bottom */
+    overflow:hidden;
+}
+
+#wrapper section {}
+
+/*
+ * Footer
+ */
+footer {
+    border-top: 1px #CCCCCC solid;
+    overflow:hidden;
+    color: blue;
+    padding: 0.5em;
+}
+
+/*
+ * Header:: LOGO
+ */
+nav#logo {
+    background-image: url('../img/logo.png');
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-position: 10px 2px; /*LEFT*/
+    /* background-position:right; */ /*RIGHT*/
+    padding-left: 150px; 
+}
+
+/*
+ * Tablas de despliegue de información de la base de datos 
+ */
+table.data_base_data {
+    font-size:smaller
+}
+/*
+ * Table headers para despliegue de información 
+ */
+thead tr { 
+    background-color:#245269;
+    color: #FFFFFF 
+}
+
+table.valign tr { vertical-align:top; }
+
+
+/*
+ * El botón de impresión (Basado en estilo de Bootstrap)
+ */
+.printControl {
+    padding-bottom: 10px;
+}
+.printControl .btn {
+    margin-top:-10px;
+}
+
+/*
+ * Ajuste del estilo form_group de Bootstrap
+ * En formularios de captura de información
+ */
+.form-group { 
+    padding: 2px 0px;
+    margin: 0;
+}
+
+/*
+ * Para todos los formularios de captura de información
+ */
+#graphContainer {
+    text-align: center;
+    background-color: #EFEFEF;
+    border: 1px solid #BBBBBB;
+}
+
+div.formZone  {
+    font-size:10pt; 
+    font-family: serif;
+    text-align: center;
+    background-color: #CCE6E5;
+    border: 1px solid #BBBBBB;
+    padding: 1em;
+}
+
+div.formZone .control-group {
+        text-align:center;
+        margin-top:1em;
+        margin: 1em auto 0 auto;        
+}
+
+div.box {
+    border: 1px solid #CCCCCC;
+    padding: 0.3em;
+    margin: 0.3em;
+}
+/*
+ * Formularios de captura de texto en mayúsculas
+ */
+form.capitalized input,
+input.capitalized {
+    text-transform:uppercase; 
+}
+
+/*
+ * Botones de operaciones en una lista de datos
+ */
+div.opButtons {
+     white-space: nowrap;
+     text-align: right;
+}
+
+/*
+ * Para DIV donde se encierran los elementos con posibilidad de imprimirse
+ */
+#print_area {
+    overflow-x:auto;
+}
+.wideText {
+    width:200px;
+    display: block; 
+}
+
+@media print {
+    #print_area { 
+        font-size: .7em;
+    }
+    #print_area table {
+        width:auto;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    .wideText {
+        width:auto;
+        display: inline; 
+    }
+}

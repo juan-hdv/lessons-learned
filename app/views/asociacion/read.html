@@ -1,0 +1,134 @@
+<style>
+.criterioTag {
+	width: 140px; 
+	display: block; 
+	text-align:right;
+}
+@media print {
+	@page {size: landscape}
+	#print_area { 
+		font-size: .5em;
+	}
+	.criterioTag {
+		width: auto; 
+		display: inline; 
+		text-align:left;
+	}
+}
+</style>
+<script>
+   /*
+    * submit 2 forms: formFilter and formCriterio, by merging the to a new form (form3)
+    * This makes possible to change a criterio and to mantain filter parameters
+    * through pages after posting  
+    */
+	function submitForms (selectField) {
+		var form2Obj = selectField.form;
+	    var form1Obj = document.getElementById("formFilter");
+	    var form3Obj = document.getElementById("formSubmit");
+	    
+	    form3Obj.innerHTML=form2Obj.innerHTML + form1Obj.innerHTML;
+	    
+        var sel = form3Obj.elements[selectField.name];
+        sel.selectedIndex = selectField.selectedIndex;
+        sel.options[selectField.selectedIndex].value = selectField.value;
+        
+        var res = submitForm (form3Obj, "{{@BASE}}/asociacion/update");
+		// var res = submitForm (form3Obj, "{{@BASE}}/asociacion/update",'{"confirm","update"}');
+		return res;
+	}
+</script>
+<!-- The same filter as in R1 report with a different action and update capabilities -->
+<set formAction="asociacion/read"></set>
+<include href="/reportesFiltros/r_filtro2.html" />
+<check if="!@lista">
+<true>
+	<div class="alert alert-info"><b>No hay lecciones para mostrar con los parámetros dados.</b></div>	
+</true>
+<false>
+    <form name="formSubmit" id="formSubmit" method="post" style="display:none" role="form" ></form>
+	<div id="print_area">
+	<table id="table1" width="100%" cellpadding="1" class="valign table-hover table-bordered table-condensed data_base_data">
+    <thead>
+    <tr>
+        <th scope="col">Criterio</th>
+        <th scope="col">ID</th>
+        <th scope="col">Año</th>
+        <th scope="col">Area de Conocimiento</th>
+        <th scope="col">Valoración</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Lección Aprendida</th>
+        <th scope="col">Proyecto</th>
+        <th scope="col">Estado Proyecto</th>
+        <th scope="col">Tipo de proyecto</th>
+        <th scope="col">Tipo de servicio</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Mercado</th>
+        <th scope="col">Ubicación</th>
+        <th scope="col">País</th>
+        <th scope="col">Arquitectura</th>
+        <th scope="col">Tecnología Principal</th>
+        <th scope="col">Base de datos</th>
+    </tr>
+    </thead>
+    <tbody>
+    <repeat group="{{ @lista }}" value="{{ @elem }}" counter="{{ @ctr }}">
+    	<tr>
+            <td id="criterioTAG{{@ctr}}">
+				<div class="criterioTag hidden-print">
+				<form name="formCriterio{{@ctr}}" id="formCriterio{{@ctr}}" method="post" class="form-horizontal" role="form">		
+				    <input type="hidden" id="update" name="update" value="update" />
+				    <input type="hidden" id="idleccion" name="idleccion" value="{{@elem.idleccion}}" />
+				    <div class="input-group">
+						<select id="idcriterio" name="idcriterio" class="form-control" style="background-color:#{{ @elem.criterio_color }}" onchange="javascript:submitForms(this)">
+							<!--
+								if (!submitForms(this)) {e=document.getElementById('idcriterio'); e.options[e.selectedIndex].value=e.options[e.selectedIndex].getAttribute('value');}
+							-->
+							<set criName=" "></set>
+							<repeat group="{{ @criterios }}" value="{{ @cri }}">
+								<option style="background-color:#{{ @cri.color }}" value="{{ @cri.idcriterio }}" <check if="{{ @cri.idcriterio == @elem.idcriterio }}">selected</check>>{{ @cri.nombre }}</option>
+								<check if="{{ @cri.idcriterio == @elem.idcriterio }}">
+									<set criName="{{@cri.nombre}}"></set>
+								</check>
+							</repeat>
+						</select>
+				    </div>
+				</form>
+				</div>
+				<div class="criterioTag visible-print">
+					{{@criName}}
+				</div>
+				<script>
+					sel = document.formCriterio{{@ctr}}.idcriterio;
+  					val = sel.options[sel.selectedIndex].text;
+					document.getElementById ("criterioTAG{{@ctr}}").title = "header=[Criterio] body=["+val+"]";
+				</script>
+           	</td>
+            <td>{{ sprintf (@leccion_id_format,@elem.idleccion) }}</td>
+            <td>{{ @elem.ano }}</td>
+            <td>{{ @elem.areac }}</td>
+            <td>{{ @elem.valoracion=='P'?'POSITIVA':'NEGATIVA' }}</td>
+            <td><div class="wideText">{{ @elem.descripcion }}</div></td>
+            <td><div class="wideText">{{ @elem.leccion }}</div></td>
+            <td>{{ @elem.proyecto }}</td>
+            <td>{{ @elem.estado?"ABIERTO":"CERRADO" }}</td>
+            <td>{{ @elem.tproyecto }}</td>
+            <td>{{ @elem.tservicio }}</td>
+            <td>{{ @elem.cliente }}</td>
+            <td>{{ @elem.mercado }}</td>
+            <td>{{ @elem.ubicacion }}</td>
+            <td>{{ @elem.pais }}</td>
+            <td>{{ @elem.arquitectura }}</td>
+            <td>{{ @elem.tecnologia }}</td>
+            <td>{{ @elem.basedatos }}</td>
+         </tr>
+	</repeat>
+    </tbody>
+	</table>
+	</div>
+	<br>
+	<a class="hidden-print" href="{{@BASE}}/asociacion/read/export" target="_blank" style="float:right;">
+		<img src="{{@BASE}}/ui/img/tocsv.jpg" alt="Exportar a CSV">
+	</a>
+</false>
+</check>

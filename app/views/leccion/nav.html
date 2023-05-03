@@ -1,0 +1,35 @@
+		<!-- NavBar de lecciones -->
+		<div class="navbar">
+			<ul class="nav nav-pills">
+				<!-- PROYECTO LIST BUTTON -->
+				<check if="{{@op=='read'}}">
+					<li><a href="{{@BASE}}/proyecto/read"><span class="glyphicon glyphicon-th"></span> Listar proyectos</a></li>
+				</check>
+				<check if="{{@op=='create' || @op=='update'}}">
+					<li><a href="javascript:void(0);"><span class="glyphicon glyphicon-th"></span> Listar proyectos</a></li>
+				</check>
+				
+				<!-- LECCION LIST BUTTON -->
+				<check if="{{@op=='read'}}">
+			       	<li class="active"><a href="javascript:void();"><span class="glyphicon glyphicon-comment"></span> Listar Lecciones</a></li>
+				</check>
+				<check if="{{@op=='create' || @op=='update'}}">
+			       	<li><a href="javascript:void(0);"><span class="glyphicon glyphicon-comment"></span> Listar Lecciones</a></li>
+		       	</check>
+				<!-- CREATE BUTTON -->
+				<!-- Button only allowed for users with crud['C'] permission -->
+				<check if="{{ (@superUser || in_array(@SESSION.idproy, @userProjects)) && @crud['C'] }}">
+				<check if="{{@op=='create'}}">
+			       	<li class="active"><a href="javascript:void();"><span class="glyphicon glyphicon-plus-sign"></span> Crear</a></li>
+		       	</check>
+				<check if="{{@op=='read'}}">
+		       		<li><a href="{{@BASE}}/leccion/create"><span class="glyphicon glyphicon-plus-sign"></span> Crear</a></li>
+				</check>
+				</check>
+				<!-- UPDATE BUTTON -->
+				<!-- Button only allowed for users with crud['C'] permission -->
+		       	<check if="{{@op=='update'}}">
+			       	<li class="active"><a href="javascript:void(0);"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
+		       	</check>
+			</ul>
+		</div>

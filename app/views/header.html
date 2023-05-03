@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="utf-8">
+        <base href="{{ @BASE.'/'.@UI }}" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="">
+		<meta name="author" content="JGM">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Replace faviconico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<!--
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+       -->
+			
+        <title>{{@company_name}} - {{@system_name}}</title>
+        
+        <!-- Style Sheets: Bootstrap, others... -->
+        <link rel="stylesheet" type="text/css" href="../../ui/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../../ui/css/main.css">	
+
+		<!-- Javascripts: Bootstrap, json, others -->
+		<!--[if lt IE 9]>
+		<script src="../../ui/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<script src="../../ui/js/jquery.js"></script>
+		<script src="../../ui/js/boxover.js"></script>
+		<script src="../../ui/js/general.js"></script>
+		<script src="../../ui/js/bootstrap.min.js"></script>
+		<script src='../../ui/js/jscolor/jscolor.js'></script>
+   	</head>
+ 
+	<body>
+    <div id="wrapper">
+    	<header>
+			<h4>Lecciones Aprendidas</h4>
+	  	</header>
+		
+		<check if="{{ !empty(@main_navigation) }}">
+			<include href="{{ @main_navigation }}" />
+		</check>
+		
+		<section id="main">
+			
+		<div class="page-header"> <!-- class="jumbotron" -->
+		  <h2>{{ @page_head }} <small>{{ @page_subhead }}</small></h2>
+		</div>
+		

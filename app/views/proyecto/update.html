@@ -1,0 +1,152 @@
+<div class="formZone">
+	<form onsubmit="capitalizeInputs()" method="post" class="form-horizontal capitalized" role="form">
+	<div class="row">	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="codigo">Código</label>
+			<div class="col-sm-7">
+	        <input type="text" id="codigo" name="codigo" value="{{ @POST.codigo }}" class="form-control" placeholder="Código" required />
+			</div>
+	    </div>
+	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="nombre">Nombre</label>
+			<div class="col-sm-7">
+	        <input type="text" id="nombre" name="nombre" value="{{ @POST.nombre }}" class="form-control" placeholder="Nombre" required />
+			</div>
+	    </div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="estado">Estado</label>
+			<div class="col-sm-7">
+	        <div class="form-control" style="text-align: left">
+				<div class="radio-inline">
+				  <set checked="{{ @POST.estado == '1'?'checked':'' }}" />
+				  <label>
+				  	<input type="radio" name="estado" id="estado1" value="1" {{ @checked }} /> Abierto
+				  </label>
+				</div>
+				<div class="radio-inline">
+	  		  	  <set checked="{{ @POST.estado == '0'?'checked':'' }}" />
+				  <label>
+				  	<input type="radio" name="estado" id="estado2" value="0" {{ @checked }} /> Cerrado
+				  </label>
+				</div>        
+			</div>        
+			</div>
+	    </div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tservicio">Tipo de Servicio</label>
+			<div class="col-sm-7">
+			<select id="tservicio" name="tservicio" class="form-control" required>
+				<repeat group="{{ @tservicios }}" value="{{ @elem }}">
+					<option value="{{ @elem.idtservicio }}" <check if="{{ @elem.idtservicio == @POST.tservicio }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	 
+	     <div class="form-group">
+			<label class="col-sm-3 control-label" for="tproyecto">Tipo de Proyecto</label>
+			<div class="col-sm-7">
+			<select id="tproyecto" name="tproyecto" class="form-control" required>
+				<repeat group="{{ @tproyectos }}" value="{{ @elem }}">
+					<option value="{{ @elem.idtproyecto }}" <check if="{{ @elem.idtproyecto == @POST.tproyecto }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="mercado">Mercado</label>
+			<div class="col-sm-7">
+	        <select id="mercado" name="mercado" class="form-control" required>
+				<repeat group="{{ @mercados }}" value="{{ @elem }}">
+					<option value="{{ @elem.idmercado }}" <check if="{{ @elem.idmercado == @POST.mercado }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="cliente">Cliente</label>
+			<div class="col-sm-7">
+			<select id="cliente" name="cliente" class="form-control" required>
+				<repeat group="{{ @clientes }}" value="{{ @elem }}">
+					<option value="{{ @elem.idcliente }}" <check if="{{ @elem.idcliente == @POST.cliente }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="arquitectura">Arquitectura</label>
+			<div class="col-sm-7">
+			<select id="arquitectura" name="arquitectura" class="form-control" required>
+				<repeat group="{{ @arquitecturas }}" value="{{ @elem }}">
+					<option value="{{ @elem.idarquitectura }}" <check if="{{ @elem.idarquitectura == @POST.arquitectura }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tecnologia">Tecnología principal</label>
+			<div class="col-sm-7">
+			<select id="tecnologia" name="tecnologia" class="form-control" required>
+				<repeat group="{{ @tecnologias }}" value="{{ @elem }}">
+					<option value="{{ @elem.idtecnologia }}" <check if="{{ @elem.idtecnologia == @POST.tecnologia }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tecnologias2">Tecnologías secundarias</label>
+			<div class="col-sm-7">
+				<div class="form-control" style="text-align: left">
+				<repeat group="{{ @tecnologias }}" value="{{ @elem }}">
+					<check if="@POST.tecnologia != @elem.idtecnologia">
+					<label class="checkbox-inline">
+					<input type="checkbox" name="tecnologias2[]" id="tecnologias2" value="{{ @elem.idtecnologia }}" <check if="{{ in_array(@elem.idtecnologia,@tecnologias2) }}">checked</check>> {{ @elem.nombre }}
+					</label>
+					</check>
+				</repeat>
+				</div>
+			</div>
+	    </div>
+	    
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="basedatos">Base de Datos</label>
+			<div class="col-sm-7">
+			<select id="basedatos" name="basedatos" class="form-control" required>
+				<repeat group="{{ @basesdatos }}" value="{{ @elem }}">
+					<option value="{{ @elem.idbasedatos }}" <check if="{{ @elem.idbasedatos == @POST.basedatos }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="ubicacion">Ubicación</label>
+			<div class="col-sm-7">
+			<select id="ubicacion" name="ubicacion" class="form-control">
+				<repeat group="{{ @ubicaciones }}" value="{{ @elem }}">
+					<option value="{{ @elem.idubicacion }}" <check if="{{ @elem.idubicacion == @POST.ubicacion }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	    <input type="hidden" id="idproyecto" name="idproyecto" value="{{ @POST.idproyecto }}" />
+	    <input type="hidden" id="update" name="update" value="update" />
+	    
+	    <div class="control-group">
+			<button onclick='submitForm(this.form, "{{ @BASE }}/proyecto/update",{"confirm":"update","registerValue":"{{ @POST.codigo }}"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Modificar Proyecto</button>
+			&nbsp;&nbsp;
+	        <button type="button" onclick='submitForm(this.form, "{{@BASE}}/proyecto/read",{"confirm":"cancel"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</button>
+	    </div>
+	</div>    
+	</form>
+	<script>document.getElementById ('codigo').focus()</script>
+</div>

@@ -1,0 +1,92 @@
+<!--
+criterio
+criterio_color
+criterio_orden
+
+-->
+<div class="form-horizontal">
+	<div class="row">
+		<label class="col-xs-3 control-label">Año del reporte</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.ano}}</div></div>
+	</div>
+	
+	<div class="row">
+		<label class="col-xs-3 control-label">Tipo de Lección</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.valoracion?"Positiva":"Negativa"}}</div></div>
+	</div>
+	
+	<div class="row">
+		<label class="col-xs-3 control-label">Area de Conocimiento</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.areac}}</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Descripción</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.descripcion}}</div></div>
+	</div>
+	
+	<div class="row">
+		<label class="col-xs-3 control-label">Lección aprendida</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.leccion}}</div></div>
+	</div>
+	
+	<div class="row">
+		<label class="col-xs-3 control-label">Proyecto</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.proyecto}} - {{@leccion.nombre}} ({{@leccion.estado?"Abrieto":"Cerrado"}})</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Ciudad (País)</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.ubicacion}} ({{@leccion.pais}})</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Tipo de proyecto</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.tproyecto}}</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Tipo de Servicio</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.tservicio}}</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Cliente</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.cliente}}</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Mercado</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.mercado}}</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Arquitectura</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.arquitectura}}</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Tecnologia</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.tecnologia}}</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Base de Datos</label>
+		<div class="col-xs-8"><div class="box">{{@leccion.basedatos}}</div></div>
+	</div>
+
+	<div class="row">
+		<label class="col-xs-3 control-label">Criterio por el que se le agrupa</label>
+		<div class="col-xs-8"><div class="box" style="background-color:#{{@leccion.criterio_color}}">{{@leccion.criterio}}</div></div>
+	</div>
+	
+	<div class="row">
+		<br>
+		<div class="col-xs-10" style="text-align: center">
+		<form>
+	    <button onclick='window.close();' class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Cerrar</button>
+	    </form>
+	    </div>
+	</div>
+	
+</div>

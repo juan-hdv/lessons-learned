@@ -1,0 +1,147 @@
+<div align="center">
+	<check if="{{ @op == 'create' }}">
+	<hr>
+	<div class="formZone">
+	<form onsubmit="capitalizeInputs()" method="post" class="form-inline capitalized" role="form">
+		<div class="form-group">
+		    <label class="sr-only" for="nombre">Nombre</label>
+			<input size="64" type="text" id="nombre" name="nombre" value="" class="form-control" placeholder="Escriba un nombre" required />	    
+	  	</div>
+
+		<!-- El siguiente campo es sólo para la tabla "criterios" -->
+		<check if="{{ @tableName == 'criterios' }}">
+		<div class="form-group">
+		    <label class="sr-only" for="orden">Orden</label>
+		    <input class="form-control" size="2" type="text" id="orden" name="orden" value="0" placeholder="Orden" required>
+		</div>
+		<div class="form-group">
+		    <label class="sr-only" for="color">Color</label>
+		    <input class="color form-control" size="6" type="text" id="color" name="color" value="ffffff" placeholder="Color" required>
+	  	</div>
+	   </check>
+
+		<!-- El siguiente CHECK es sólo para la tabla "ubicaciones" -->
+		<check if="{{ @tableName == 'ubicaciones' }}">
+	    <div class="form-group">
+	        <label class="sr-only" for="nombre">País</label>
+	        <select id="pais" name="pais" class="form-control" required>
+				<repeat group="{{ @paises }}" value="{{ @elem }}"  counter="{{ @c }}">
+					<option value="{{ @elem.idpais }}" <check if="{{ @c == 1 }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	    </div>
+	 	</check>
+	  	
+		<input type="hidden" id="create" name="create" value="create" />
+    	<button onclick='submitForm(this.form, "{{ @BASE }}/admin/{{@tableName}}/create", {"confirm":"create"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Añadir</button>
+        <button onclick='submitForm(this.form, "{{ @BASE }}/admin/{{@tableName}}/read", {"confirm":"cancel"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar </button>
+	</form>
+	<script>document.getElementById ('nombre').focus()</script>
+	</div>
+	<hr>
+	</check>
+
+	<check if="{{ @op == 'update' }}">
+	<hr>
+	<div class="formZone">
+	<form onsubmit="capitalizeInputs()" method="post" class="form-inline capitalized" role="form">
+		<div class="form-group">
+		    <set post_nombre="{{ !isset(@POST.nombre)?:@POST.nombre }}"></set>
+		    <label class="sr-only" for="nombre">Nombre</label>
+			<input size="64" type="text" id="nombre" name="nombre" value="{{ @post_nombre }}" class="form-control" placeholder="Escriba un nombre" required />	    
+	  	</div>
+
+		<!-- El siguiente campo es sólo para la tabla "criterios" -->
+		<check if="{{ @tableName == 'criterios' }}">
+		<div class="form-group">
+		    <label class="sr-only" for="orden">Orden</label>
+		    <input class="form-control" size="2" type="text" id="orden" name="orden" value="{{ @POST.orden }}" required>
+		</div>
+		<div class="form-group">
+		    <label class="sr-only" for="color">Color</label>
+		    <input class="color form-control" size="6" type="text" id="color" name="color" value="{{ @POST.color }}" required>
+	  	</div>
+	    </check>
+
+		<!-- El siguiente CHECK es sólo para la tabla "ubicaciones" -->
+		<check if="{{ @tableName == 'ubicaciones' }}">
+	    <div class="form-group">
+	        <label class="sr-only" for="nombre">País</label>
+	        <select id="pais" name="pais" class="form-control" required>
+				<repeat group="{{ @paises }}" value="{{ @elem }}">
+					<option value="{{ @elem.idpais }}" <check if="{{ @elem.idpais == @POST.pais }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+	    </div>
+	 	</check>
+	 	
+	    <set post_tableKeys="{{ !isset(@POST[@tableKeys])?:@POST[@tableKeys] }}"></set>
+	    <input type="hidden" id="tableid" name="tableid" value="{{ @post_tableKeys }}" />
+	    <input type="hidden" id="update" name="update" value="update" />
+		<button onclick='submitForm(this.form, "{{ @BASE }}/admin/{{ @tableName }}/update",{"confirm":"update"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Modificar</button>
+        <button onclick='submitForm(this.form, "{{ @BASE }}/admin/{{@tableName}}/read",{"confirm":"cancel"}); return false;' class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar </button>
+	</form>
+	<script>document.getElementById ('nombre').focus()</script>
+	</div>
+	<hr>
+	</check>
+
+	<check if="{{ !@lista }}">
+	<true>
+		<div class="alert alert-info"><b>No hay criterios para mostrar.</b></div>	
+	</true>
+	<false>
+	<table cellpadding="5" class="table-hover table-bordered table-condensed data_base_data">
+	    <thead>
+	    <tr>
+	        <th scope="col">Nombre</th>
+	        
+			<!-- El siguiente CHECK es sólo para la tabla "criterios" -->
+			<check if="{{ @tableName == 'criterios' }}">
+            <th scope="col">Orden</th>
+            <th scope="col">Color</th>
+			</check>
+				        	
+			<!-- El siguiente CHECK es sólo para la tabla "ubicaciones" -->
+			<check if="{{ @tableName == 'ubicaciones' }}">
+            <th scope="col">País</th>
+			</check>	        	
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <repeat group="{{ @lista }}" value="{{ @elem }}">
+	        <tr>
+	            <td>{{ trim(@elem.nombre) }}</td>
+
+				<!-- El siguiente campo es sólo para la tabla "criterios" -->
+				<check if="{{ @tableName == 'criterios' }}">
+	            <td>{{ trim(@elem.orden) }}</td>
+				<td><input class="color form-control" size="6" value="{{ @elem.color }}" disabled="true"></td>
+				</check>				
+
+				<!-- El siguiente CHECK es sólo para la tabla "ubicaciones" -->
+				<check if="{{ @tableName == 'ubicaciones' }}">
+	            <td>{{ trim(@elem.pais) }}</td>
+				</check>	        	
+	            
+	            <td width="150">
+					<form method="post">
+					<input type="hidden" id="tableid" name="tableid" value="{{ @elem[@tableKeys] }}">
+					<check if="{{@op == 'create' || @op == 'update'}}">
+						<true>
+		            	<button onclick='submitForm(this.form, "{{ @BASE }}/admin/{{ @tableName }}/update",{"confirm":"update","moreInfo":"Si está editando otro registro podría perder la información."}); return false;' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Editar</button>
+						</true>
+						<false>
+		            	<button onclick='submitForm(this.form, "{{ @BASE }}/admin/{{ @tableName }}/update",{"confirm":"update"}); return false;' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Editar</button>
+						</false>
+					</check>
+	            	<button onclick='submitForm(this.form, "{{ @BASE }}/admin/{{ @tableName }}/delete", {"confirm":"delete","registerValue":"{{@elem.nombre}}","moreInfo":"Si está editando otro registro podría perder la información."}); return false;' class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+	            	</form>
+	            </td>
+	         </tr>
+	    </repeat>
+	    </tbody>
+	</table>
+</false>
+</check>
+</div>

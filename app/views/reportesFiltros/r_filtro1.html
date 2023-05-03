@@ -1,0 +1,220 @@
+<!--
+	@r_filtro1
+	
+	Asociado con el código: F1
+	
+	Filtra por valores, no por códigos (keys)
+	Para cada una de las tablas de los ForeignKeys, trae los keys=>Values, 
+	pero en input.value pone el nombre, no el código de cada registro.
+	
+	VER: ReportesControler :: 
+			_filterConstruct
+			_filterSetDefaultMYPOST
+	* Pare este se usan nombres, no códigos.
+	* 
+	* USADO POR:
+	* 		views/reportes/R1  (Lecciones consolidadas: globales y no globales)
+	* 
+-->
+<div class="formZone hidden-print">
+	<form name="formFilter" id="formFilter" action='{{ htmlspecialchars("@BASE/@formAction") }}' method="post" class="form-horizontal" role="form">
+	<div class="row">
+	<div class="col-md-7">	
+	    <div class="form-group">
+	        <label class="col-sm-3 control-label" for="ano">Año del reporte</label>
+	        <div class="col-sm-9">
+			<select id="ano" name="ano" class="form-control" required>
+				<repeat group="{{ @anos }}" key="@ano" value="{{ @value }}">
+					<option value="{{ @value }}" <check if="{{ @value == @MY_POST.ano }}">selected</check>>{{ @value }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+		
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="valoracion">Tipo de Lección</label>
+	       	<div class="col-sm-9" style="text-align:left">
+	        <div class="form-control" style="display: inline">
+				<div class="radio-inline">
+	  		  	  <set checked="{{ @MY_POST.valoracion == '-1'?'checked':'' }}" />
+				  <label>
+				  	<input type="radio" name="valoracion" id="valoracion1" value="-1" {{ @checked }} /> Sin especificar
+	 		  	 </label>
+				</div>        
+				<div class="radio-inline">
+				  <label>
+				  	<set checked="{{ @MY_POST.valoracion == 'P'?'checked':'' }}" />
+				  	<input type="radio" name="valoracion" id="valoracion2" value="P" {{ @checked }} /> A repetir
+				  </label>
+				</div>
+				<div class="radio-inline">
+	  		  	  <set checked="{{ @MY_POST.valoracion == 'N'?'checked':'' }}" />
+				  <label>
+				  	<input type="radio" name="valoracion" id="valoracion3" value="N" {{ @checked }} /> A evitar
+	 		  	 </label>
+				</div>
+			</div>        
+	 		</div>        
+	    </div>
+	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="areac">Area de Conocimiento</label>
+			<div class="col-sm-9">
+			<select id="areac" name="areac" class="form-control" required>
+				<repeat group="{{ @areasc }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre,@MY_POST.areac) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="proyecto">Cod. Proyecto</label>
+			<div class="col-sm-9">
+			<select id="proyecto" name="proyecto" class="form-control" required>
+				<repeat group="{{ @proyectos }}" value="{{ @elem }}">
+					<option value="{{ @elem.codigo }}" <check if="{{ mystrcmp(@elem.codigo,@MY_POST.proyecto) }}">selected</check>>{{ @elem.codigo }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="estado">Estado del proyecto</label>
+	       	<div class="col-sm-9" style="text-align:left">
+	        <div class="form-control" style="display: inline">
+				<div class="radio-inline">
+	  		  	  <set checked="{{ @MY_POST.estado == '-1'?'checked':'' }}" />
+				  <label>
+				  	<input type="radio" name="estado" id="estado1" value="-1" {{ @checked }} /> Sin especificar
+	 		  	 </label>
+				</div>        
+				<div class="radio-inline">
+   			  	  <set checked="{{ @MY_POST.estado == '1'?'checked':'' }}" />
+				  <label>
+				  	<input type="radio" name="estado" id="estado2" value="1" {{ @checked }} /> Abierto
+				  </label>
+				</div>
+				<div class="radio-inline">
+	  		  	  <set checked="{{ @MY_POST.estado == '0'?'checked':'' }}" />
+				  <label>
+				  	<input type="radio" name="estado" id="estado3" value="0" {{ @checked }} /> Cerrado
+	 		  	 </label>
+				</div>
+			</div>        
+	 		</div>        
+	    </div>
+	
+	     <div class="form-group">
+			<label class="col-sm-3 control-label" for="tproyecto">Tipo de Proyecto</label>
+			<div class="col-sm-9">
+			<select id="tproyecto" name="tproyecto" class="form-control" required>
+				<repeat group="{{ @tproyectos }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre,@MY_POST.tproyecto) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	   <div class="form-group">
+			<label class="col-sm-3 control-label" for="tservicio">Tipo de Servicio</label>
+			<div class="col-sm-9">
+			<select id="tservicio" name="tservicio" class="form-control" required>
+				<repeat group="{{ @tservicios }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre, @MY_POST.tservicio) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	    <div class="control-group" align="center">
+	        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Filtrar la información</button>
+			&nbsp;&nbsp;
+	        <button type="button" onclick="javascript:location.href='{{@BASE}}/{{@formAction}}'" class="btn btn-primary"><span class="glyphicon glyphicon-ban-circle"></span> Limpiar filtro</button>
+	    </div>
+	    
+	</div>
+	<div class="col-md-5">
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="cliente">Cliente</label>
+			<div class="col-sm-9">
+			<select id="cliente" name="cliente" class="form-control" required>
+				<repeat group="{{ @clientes }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre, @MY_POST.cliente) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="mercado">Mercado</label>
+			<div class="col-sm-9">
+	        <select id="mercado" name="mercado" class="form-control" required>
+				<repeat group="{{ @mercados }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre,@MY_POST.mercado) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	 
+	     <div class="form-group">
+			<label class="col-sm-3 control-label" for="ubicacion">Ubicación</label>
+			<div class="col-sm-9">
+			<select id="ubicacion" name="ubicacion" class="form-control">
+				<repeat group="{{ @ubicaciones }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre,@MY_POST.ubicacion) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	
+	     <div class="form-group">
+			<label class="col-sm-3 control-label" for="pais">País</label>
+			<div class="col-sm-9">
+			<select id="pais" name="pais" class="form-control">
+				<repeat group="{{ @paises }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre, @MY_POST.pais) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="arquitectura">Arquitectura</label>
+			<div class="col-sm-9">
+			<select id="arquitectura" name="arquitectura" class="form-control" required>
+				<repeat group="{{ @arquitecturas }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre,@MY_POST.arquitectura) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="tecnologia">Tecnología principal</label>
+			<div class="col-sm-9">
+			<select id="tecnologia" name="tecnologia" class="form-control" required>
+				<repeat group="{{ @tecnologias }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre, @MY_POST.tecnologia) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	 
+	    <div class="form-group">
+			<label class="col-sm-3 control-label" for="basedatos">Base de Datos</label>
+			<div class="col-sm-9">
+			<select id="basedatos" name="basedatos" class="form-control" required>
+				<repeat group="{{ @basesdatos }}" value="{{ @elem }}">
+					<option value="{{ @elem.nombre }}" <check if="{{ mystrcmp(@elem.nombre,@MY_POST.basedatos) }}">selected</check>>{{ @elem.nombre }}</option>
+				</repeat>
+			</select>
+			</div>
+	    </div>
+	    
+	    <input type="hidden" id="filter" name="filter" value="filter" />
+	</div>
+	</div>
+	</form>
+</div>
+<hr>

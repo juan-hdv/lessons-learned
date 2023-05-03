@@ -1,0 +1,80 @@
+<!--
+	Se separan las lecciones positivas de las negativas:
+-->
+<check if="!@leccionesPos and !@leccionesNeg">
+<true>
+	<div class="alert alert-info"><b>El proyecto no tiene lecciones asociadas.</b></div>	
+</true>
+<false>
+<div id="print_area">	
+	<table width="100%" cellpadding="1" class="valign table-hover table-bordered table-condensed data_base_data">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Año</th>
+        <th scope="col">Area de Conocimiento</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Lección aprendida</th>
+        <th scope="col">Otros proyectos asociados</th>
+        <check if="{{@buttonsArea}}">
+        <th scope="col" class="hidden-print">&nbsp;</th>
+        </check>
+    </tr>
+    </thead>
+
+	<!-- Repeat twice: first for possitive lessons and second for negative lessons -->
+	<repeat group="{{ array(1,2) }}" value="{{ @index }}">
+		<check if="@index == 1">
+			<set lecciones="{{@leccionesPos}}"></set>
+			<set label="Positivas"></set>
+		</check>
+		<check if="@index == 2">
+			<set lecciones="{{@leccionesNeg}}"></set>
+			<set label="Negativas"></set>
+		</check>
+	
+		<check if="{{ @lecciones!==false }}">
+	    <tbody>
+	    	<tr><td colspan="{{7 + @buttonsArea}}"><br><strong>Lecciones {{@label}}</strong></td></tr>
+	    	<repeat group="{{ @lecciones }}" value="{{ @elem }}">
+	    	<set idleccion="{{sprintf (@leccion_id_format,@elem.idleccion)}}"></set>
+	        <tr>
+	            <td>{{ @idleccion }}</td>
+	            <td>{{ @elem.ano }}</td>
+	            <td>{{ @elem.areac }}</td>
+	            <td>{{ @elem.descripcion }}</td>
+	            <td>{{ @elem.leccion }}</td>
+	            <td>{{ @elem.proyectos }}</td>
+	   			<check if="{{@buttonsArea}}">
+	            <td class="hidden-print">
+	            	<div class="opButtons">
+	            	<form method="post">
+		            	<input type="hidden" id="idleccion" name="idleccion" value="{{ @elem.idleccion }}" />
+						<!-- Btns only allowed for users associated with the actual project -->            	
+						<check if="{{ @superUser || in_array(@SESSION.idproy, @userProjects) }}">
+							<check if="{{ @crud['U'] }}">
+		            		<button onclick='submitForm(this.form, "{{ @BASE }}/leccion/update/"); return false;' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Editar</button>
+		            		</check>
+		            		 
+							<check if="{{ @crud['D'] }}">
+			            	<button onclick='submitForm(this.form, "{{ @BASE }}/leccion/delete/",{"confirm":"delete","registerValue":"{{@idleccion}}"}); return false;' class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+			            	</check>
+		            	</check>
+	            	</form>
+	            	</div>
+	            </td>
+	           	</check>
+	         </tr>
+	    	</repeat>
+	    </tbody>
+		</check>
+	</repeat>
+	</table>
+</div>
+<br>
+<br>
+<a class="hidden-print" href="{{@BASE}}/leccion/read/export" target="_blank" style="float:right;">
+	<img src="{{@BASE}}/ui/img/tocsv.jpg" alt="Exportar a Excel">
+</a>
+</false>
+</check>
